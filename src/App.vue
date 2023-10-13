@@ -1,0 +1,146 @@
+<template>
+  <div id="app">
+    <header class="header container">
+    <div class="header__wrapper">
+      <router-link class="header__info" v-bind:to="{name:'main'}">Каталог</router-link>
+
+      <router-link class="header__logo" v-bind:to="{name:'main'}">
+        <img src="img/svg/logo-moire.svg" alt="Логотип интернет магазина Moire" width="116" height="34">
+      </router-link>
+
+      <a class="header__tel" href="tel:8 800 600 90 09">
+        8 800 600 90 09
+      </a>
+      <CartIndicator/>  
+    </div>
+  </header>
+
+  <router-view></router-view>
+
+  <footer class="footer container">
+    <div class="footer__wrapper">
+      <ul class="footer__links">
+        <li>
+          <router-link class="footer__link" v-bind:to="{name:'main'}">Каталог</router-link>
+        </li>
+        <li>
+          <a class="footer__link" href="tel:88006009009">
+            8 800 600 90 09
+          </a>
+        </li>
+        <li>
+          <a class="footer__link" href="mailto:hi@technozavrrr.com">
+            hi@technozavrrr.com
+          </a>
+        </li>
+        <li>
+          <a class="footer__link" href="#">
+            Распродажа
+          </a>
+        </li>
+        <li>
+          <a class="footer__link footer__link--medium" href="#">
+            Заказать звонок
+          </a>
+        </li>
+      </ul>
+
+      <ul class="footer__social social">
+        <li class="social__item">
+          <a class="social__link" href="#" aria-label="Вконтакте">
+            <svg width="20" height="11" fill="currentColor">
+              <use xlink:href="#icon-vk"></use>
+            </svg>
+          </a>
+        </li>
+        <li class="social__item">
+          <a class="social__link" href="#" aria-label="Инстаграм">
+            <svg width="17" height="17" fill="currentColor">
+              <use xlink:href="#icon-insta"></use>
+            </svg>
+          </a>
+        </li>
+        <li class="social__item">
+          <a class="social__link" href="#" aria-label="Facebook">
+            <svg width="17" height="17" fill="currentColor">
+              <use xlink:href="#icon-facebook"></use>
+            </svg>
+          </a>
+        </li>
+        <li class="social__item">
+          <a class="social__link" href="#" aria-label="Twitter">
+            <svg width="17" height="14" fill="currentColor">
+              <use xlink:href="#icon-twitter"></use>
+            </svg>
+          </a>
+        </li>
+        <li class="social__item">
+          <a class="social__link" href="#" aria-label="Telegram">
+            <svg width="19" height="17" fill="currentColor">
+              <use xlink:href="#icon-telegram"></use>
+            </svg>
+          </a>
+        </li>
+      </ul>
+
+      <p class="footer__desc">
+        Все права на&nbsp;материалы, находящиеся на&nbsp;сайте, охраняются в&nbsp;соответствии с&nbsp;законодательством&nbsp;РФ, 
+        в&nbsp;том числе об&nbsp;авторском праве и&nbsp;смежных правах.
+      </p>
+      
+      <ul class="footer__data">
+        <li>
+          <a class="footer__link" href="#" target="_blank" rel="noopener" type="application/pdf">
+            Политика конфиденциальности
+          </a>
+        </li>
+        <li>
+          <a class="footer__link" href="#" target="_blank" rel="noopener" type="application/pdf">
+            Публичная оферта
+          </a>
+        </li>
+      </ul>
+
+      <span class="footer__copyright">
+        © 2023 Moire
+      </span>
+    </div>
+  </footer>
+
+  </div>
+</template>
+
+<script>
+import { mapActions } from 'vuex';
+import CartIndicator from '@/components/CartIndicator.vue';
+
+export default {
+  name: 'App',
+  components: {
+    CartIndicator,
+  },
+  methods: {
+    ...mapActions(['loadCart', 'setUserAccessKey']),
+  },
+  created() {
+    const userAccessKey = localStorage.getItem('userAccessKey');
+    console.log(userAccessKey);
+    if (userAccessKey) {
+      this.setUserAccessKey(userAccessKey);
+    }
+
+    this.loadCart();
+  },
+}
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
